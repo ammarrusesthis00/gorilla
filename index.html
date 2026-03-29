@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey, this one's for you 🎉</title>
+<link rel="icon" href="/image.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple: #9333ea;
+  --pink: #ec4899;
+  --blue: #6366f1;
+  --peach: #f97316;
+  --bg: #0c0a18;
+  --surface: #13102a;
+  --surface2: #1c1838;
+  --text: #f5f0ff;
+  --muted: #9891c4;
+  --radius: 18px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: #ec4899;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: screen;
+}
+.cursor-trail {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(147,51,234,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: left 0.1s ease, top 0.1s ease;
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(147,51,234,0.38) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 70% at 80% 70%, rgba(236,72,153,0.32) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 10%, rgba(99,102,241,0.25) 0%, transparent 50%),
+    var(--bg);
+  z-index: 0;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  animation: floatOrb 9s ease-in-out infinite;
+  pointer-events: none;
+}
+.orb1 { width: 340px; height: 340px; background: var(--purple); top: -100px; left: -100px; animation-delay: 0s; }
+.orb2 { width: 280px; height: 280px; background: var(--pink); bottom: -70px; right: -70px; animation-delay: 3.5s; }
+.orb3 { width: 220px; height: 220px; background: var(--blue); top: 40%; left: 65%; animation-delay: 6s; }
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-28px) scale(1.06); }
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 780px; }
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(236,72,153,0.15);
+  border: 1px solid rgba(236,72,153,0.35);
+  color: #f9a8d4;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.3s forwards;
+}
+.hero-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.55s forwards;
+  margin-bottom: 1.6rem;
+}
+.grad-text {
+  background: linear-gradient(135deg, #c084fc 0%, #ec4899 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 500px;
+  margin: 0 auto 2.8rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+.hero-btn {
+  display: inline-block;
+  padding: 0.9rem 2.4rem;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-radius: 100px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 1s forwards;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 32px rgba(236,72,153,0.35);
+}
+.hero-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 44px rgba(236,72,153,0.55); }
+
+.scroll-hint {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  color: var(--muted); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeUp 1s ease 1.6s forwards;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SHARED ===== */
+section { padding: 6rem 1.5rem; }
+.container { max-width: 1000px; margin: 0 auto; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.2rem;
+}
+.section-label::before {
+  content: ''; width: 22px; height: 1.5px;
+  background: linear-gradient(to right, var(--pink), var(--purple));
+}
+.section-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 3rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ===== MEME SECTION ===== */
+#memes { background: var(--surface); }
+
+.meme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.2rem;
+}
+.meme-card {
+  background: var(--surface2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+.meme-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(147,51,234,0.1), rgba(236,72,153,0.08));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.meme-card:hover { transform: translateY(-6px); border-color: rgba(236,72,153,0.3); box-shadow: 0 18px 50px rgba(147,51,234,0.2); }
+.meme-card:hover::before { opacity: 1; }
+.meme-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+.meme-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.meme-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+.meme-badge {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  background: rgba(236,72,153,0.15);
+  border: 1px solid rgba(236,72,153,0.2);
+  color: #f9a8d4;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.22rem 0.65rem; border-radius: 100px;
+}
+
+/* ===== APPRECIATION ===== */
+#appreciation { background: var(--bg); }
+
+.appreciate-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.appreciate-big {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(147,51,234,0.15), rgba(236,72,153,0.1));
+  border: 1px solid rgba(236,72,153,0.2);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+.appreciate-big p {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.9;
+  color: #d4cdf4;
+}
+.appreciate-big p strong { color: #f0abfc; font-weight: 600; }
+
+.appreciate-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.appreciate-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(99,102,241,0.2); }
+.appreciate-card .ac-num {
+  font-family: 'Manrope', sans-serif;
+  font-size: 2.4rem; font-weight: 800;
+  background: linear-gradient(135deg, #c084fc, #ec4899);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 0.5rem; line-height: 1;
+}
+.appreciate-card h4 { font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.45rem; }
+.appreciate-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+
+@media (max-width: 600px) {
+  .appreciate-wrap { grid-template-columns: 1fr; }
+  .appreciate-big { grid-column: 1; }
+}
+
+/* ===== SURPRISE ===== */
+#surprise { background: var(--surface); text-align: center; }
+
+.surprise-box {
+  max-width: 620px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.surprise-btn {
+  position: relative;
+  padding: 1rem 3rem;
+  background: linear-gradient(135deg, #9333ea, #ec4899, #f97316);
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 100px;
+  color: #fff;
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: gradShift 4s ease infinite;
+  box-shadow: 0 0 40px rgba(236,72,153,0.35);
+}
+@keyframes gradShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.surprise-btn:hover { transform: scale(1.06); box-shadow: 0 10px 55px rgba(236,72,153,0.55); }
+.surprise-btn:active { transform: scale(0.97); }
+
+.surprise-message {
+  display: none;
+  background: linear-gradient(135deg, rgba(147,51,234,0.2), rgba(236,72,153,0.15));
+  border: 1px solid rgba(236,72,153,0.3);
+  border-radius: var(--radius);
+  padding: 2.8rem 2.5rem;
+  text-align: center;
+  animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+.surprise-message.shown { display: block; }
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.82) translateY(22px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.big-heart {
+  font-size: 3.5rem; display: block; margin-bottom: 1.2rem;
+  animation: heartbeat 1.2s ease infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+.surprise-message h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #c084fc, #f9a8d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.surprise-message p { font-size: 1rem; color: #d4cdf4; line-height: 1.85; }
+
+/* ===== CLOSING ===== */
+#closing {
+  background: var(--bg);
+  text-align: center;
+  padding: 8rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.closing-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 80%, rgba(147,51,234,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 30% 20%, rgba(236,72,153,0.15) 0%, transparent 55%);
+}
+.closing-inner { position: relative; z-index: 1; max-width: 580px; margin: 0 auto; }
+.closing-quote {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #e9d5ff, #f9a8d4, #fed7aa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.closing-sub {
+  color: var(--muted);
+  font-size: 1rem; line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.closing-sig {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* PARTICLES */
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 99;
+  animation: pFall linear forwards;
+}
+@keyframes pFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateY(80px) rotate(360deg) scale(0.5); }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.45); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="trail"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">✨ a love letter to my husband, basically</div>
+    <h1 class="hero-title">
+      Hello, my<br>
+      <span class="grad-text">beautiful gorilla</span>
+    </h1>
+    <p class="hero-sub">
+      This page exists because you deserve something made just for you.
+      Scroll down — it only gets more embarrassing from here.
+    </p>
+    <a href="#memes" class="hero-btn">Let's gooo 🚀</a>
+  </div>
+
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- MEMES -->
+<section id="memes">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">certified truths</div>
+      <h2 class="section-title">The Official Dossier<br><span style="color:var(--muted);font-size:0.6em;font-weight:400">aka things we both know are facts</span></h2>
+    </div>
+
+   <div class="meme-grid">
+  <div class="meme-card reveal" style="transition-delay:0.05s">
+    <div class="meme-badge">Canon</div>
+    <span class="meme-emoji">🦍</span>
+    <h3>My husband, my gorilla</h3>
+    <p>Yes, I'm calling you my husband. No, I don't need to explain this. It just makes sense and we both know it.</p>
+  </div>
+
+  <div class="meme-card reveal" style="transition-delay:0.15s">
+    <div class="meme-badge">Verified</div>
+    <span class="meme-emoji">💅</span>
+    <h3>Unmatched in every game</h3>
+    <p>You're actually cracked at games. Roblox, geography, everything. And honestly, you're probably cooking in CODM too without even trying.</p>
+  </div>
+
+  <div class="meme-card reveal" style="transition-delay:0.25s">
+    <div class="meme-badge">100%</div>
+    <span class="meme-emoji">🔥</span>
+    <h3>Chaotic yet somehow wholesome</h3>
+    <p>You can be chaotic and fun at the same time. It's a rare skill. You've mastered it without even trying.</p>
+  </div>
+
+  <div class="meme-card reveal" style="transition-delay:0.35s">
+    <div class="meme-badge">True</div>
+    <span class="meme-emoji">🏃</span>
+    <h3>Physically cannot stop being so cool</h3>
+    <p>It’s not even something you turn on or off. The energy, the presence, the vibe — it just stays effortlessly cool all the time.</p>
+  </div>
+
+  <div class="meme-card reveal" style="transition-delay:0.45s">
+    <div class="meme-badge">Fact</div>
+    <span class="meme-emoji">😂</span>
+    <h3>Still woke up at 2am</h3>
+    <p>No warning, no reason — just awake at 2am doing random things like it’s completely normal. The dedication to the late-night grind is unmatched.</p>
+  </div>
+
+  <div class="meme-card reveal" style="transition-delay:0.55s">
+    <div class="meme-badge">Undeniable</div>
+    <span class="meme-emoji">✨</span>
+    <h3>Makes everything more fun</h3>
+    <p>Even the most normal moments turn into something better when you're around. The energy, the jokes, the presence — it all just upgrades the moment instantly.</p>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- APPRECIATION -->
+<section id="appreciation">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">the real stuff</div>
+      <h2 class="section-title">Things I genuinely<br>love about you</h2>
+    </div>
+
+    <div class="appreciate-wrap">
+      <div class="appreciate-big reveal">
+        <p>
+  There’s something rare about you — you <strong>stick around</strong> for people instead of disappearing like a side character, and you’re never <strong>rude</strong> for no reason (which honestly is already a win). 
+  The way you act and the energy you bring makes everything more fun, whether it’s games, conversations, or just random moments where things somehow get interesting. 
+  And the things you do? Your ideas are genuinely <strong>nice</strong> and <strong>unique</strong> — like, not even in a basic way — they actually stand out and people notice, whether you realize it or not.
+</p>
+      </div>
+
+      <div class="appreciate-card reveal" style="transition-delay:0.1s">
+        <div class="ac-num">01</div>
+        <h4>Your laugh</h4>
+        <p>It's the kind of laugh that makes other people laugh. Genuinely crazy. You can't hear it and stay in a bad mood.</p>
+      </div>
+      <div class="appreciate-card reveal" style="transition-delay:0.2s">
+        <div class="ac-num">02</div>
+        <h4>How you love people</h4>
+        <p>You're loyal and caring in ways that often go unspoken. The people around you value this, even when they don't say it.</p>
+      </div>
+      <div class="appreciate-card reveal" style="transition-delay:0.3s">
+        <div class="ac-num">03</div>
+        <h4>Your energy</h4>
+        <p>It's not just physical — there's a warmth to it. You pull people in and make the world feel a bit more exciting.</p>
+      </div>
+      <div class="appreciate-card reveal" style="transition-delay:0.4s">
+        <div class="ac-num">04</div>
+        <h4>Always in the mix</h4>
+<p>You’ve got a lot going on — active, social, and always in tune with trends. Your energy is fun and lively and stands out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURPRISE -->
+<section id="surprise">
+  <div class="container">
+    <div class="surprise-box">
+      <div class="reveal" style="width:100%">
+        <div class="section-label" style="justify-content:center">the grand finale</div>
+        <h2 class="section-title" style="text-align:center">One last thing...</h2>
+        <p style="color:var(--muted);font-size:1rem;max-width:420px;margin:0 auto 2rem;text-align:center;line-height:1.75">
+          There's a message in here saved just for you. You might not be ready. Press the button anyway.
+        </p>
+      </div>
+
+      <button class="surprise-btn reveal" id="surpriseBtn" onclick="revealSurprise()">
+        Open your message 💌
+      </button>
+
+      <div class="surprise-message" id="surpriseMsg">
+        <span class="big-heart">💜</span>
+        <h3>Hey, you beautiful gorilla.</h3>
+        <p>
+          I made this whole page just to say: I'm genuinely so glad that you're my friend. Not in a dramatic way — in the real, honest, everyday kind of way where I think about it and it just makes me smile. You deserve to know that the way you are, right now, exactly as you are, is super cool. More than good. Actually kind of incredible. This is not a drill. You are my husband, my gorilla, my person — and this page is the proof. Don't you dare forget it. 😤🔪😁
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-inner reveal">
+    <p class="closing-quote">You are so, so sweet— don't you forget it.</p>
+    <p class="closing-sub">
+      This little corner of the internet was made with a lot of care, a bit of chaos, and a whole lot of genuine affection. Thank you for being my lovely gorilla.
+    </p>
+    <div class="closing-sig">made by wifey, just for you ✨</div>
+    <p style="color:var(--muted);font-size:0.6em;font-weight:400;margin-top: 70px;">this is the end, come on, LEAVE !!</p>
+  </div>
+</section>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('trail');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = (mx - 6) + 'px';
+  cursor.style.top = (my - 6) + 'px';
+  setTimeout(() => {
+    trail.style.left = (mx - 18) + 'px';
+    trail.style.top = (my - 18) + 'px';
+  }, 70);
+});
+document.querySelectorAll('a,button,.meme-card,.appreciate-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Surprise reveal
+function revealSurprise() {
+  document.getElementById('surpriseMsg').classList.add('shown');
+  document.getElementById('surpriseBtn').style.display = 'none';
+  launchConfetti();
+}
+
+function launchConfetti() {
+  const colors = ['#9333ea','#ec4899','#f97316','#6366f1','#c084fc','#f9a8d4','#fed7aa'];
+  for (let i = 0; i < 70; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = 4 + Math.random() * 7;
+      p.style.cssText = `
+        left:${Math.random()*100}vw;
+        top:${15 + Math.random()*65}vh;
+        width:${size}px; height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${0.7 + Math.random()*1.3}s;
+        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 2200);
+    }, i * 25);
+  }
+}
+</script>
+</body>
+</html>
