@@ -6,10 +6,224 @@
 <title>Hey, this one's for you 🎉</title>
 <link rel="icon" href="/image.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#bw-section {
+  position: relative;
+  padding: 6rem 1.5rem;
+  background: #080808;
+  overflow: hidden;
+}
 
+.bw-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.bw-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.bw-glow1 {
+  width: 400px; height: 400px;
+  background: rgba(255,255,255,0.04);
+  top: -100px; left: -100px;
+}
+.bw-glow2 {
+  width: 300px; height: 300px;
+  background: rgba(255,255,255,0.03);
+  bottom: -80px; right: -80px;
+}
+
+.bw-inner { position: relative; z-index: 1; }
+
+.bw-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+.bw-mega-title {
+  font-family: 'Poppins', serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.8rem;
+}
+.bw-mega-title .filled { color: #ffffff; }
+.bw-mega-title .outline {
+  -webkit-text-stroke: 2px #ffffff;
+  color: transparent;
+}
+
+.bw-desc {
+  font-size: 1rem;
+  color: #777777;
+  line-height: 1.8;
+  max-width: 420px;
+}
+.bw-desc strong { color: #ffffff; font-weight: 600; }
+
+.bw-badge-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  justify-content: center;
+}
+
+.bw-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  color: #aaaaaa;
+  font-weight: 500;
+  transition: border-color 0.2s, color 0.2s;
+}
+.bw-badge:hover { border-color: rgba(255,255,255,0.2); color: #ffffff; }
+
+.bw-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.bw-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.bw-card {
+  border-radius: 18px;
+  padding: 2rem 1.8rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bw-card:hover { transform: translateY(-6px); }
+
+.bw-card-dark {
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.bw-card-dark h3 { color: #ffffff; }
+.bw-card-dark p { color: #666666; }
+.bw-card-dark:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.6); }
+
+.bw-card-white {
+  background: #f0f0f0;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.bw-card-white h3 { color: #080808; }
+.bw-card-white p { color: #555555; }
+.bw-card-white:hover { box-shadow: 0 16px 48px rgba(255,255,255,0.08); }
+
+.bw-card-outline {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.15);
+}
+.bw-card-outline h3 { color: #ffffff; }
+.bw-card-outline p { color: #666666; }
+.bw-card-outline:hover { border-color: rgba(255,255,255,0.4); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+
+.bw-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.bw-card h3 {
+  font-family: 'Poppins', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+.bw-card p { font-size: 0.87rem; line-height: 1.7; }
+
+.bw-bottom-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.bw-stat {
+  flex: 1;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 1.8rem;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.bw-stat:hover { border-color: rgba(255,255,255,0.15); }
+
+.bw-stat-num {
+  display: block;
+  font-family: 'Poppins', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.bw-stat-label {
+  font-size: 0.8rem;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.bw-big-quote {
+  border-left: 2px solid #ffffff;
+  padding: 1.5rem 0 1.5rem 2rem;
+  position: relative;
+}
+
+.bw-quote-mark {
+  font-family: 'Poppins', serif;
+  font-size: 5rem;
+  color: rgba(255,255,255,0.08);
+  line-height: 1;
+  position: absolute;
+  top: 0; left: 1.5rem;
+  pointer-events: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Poppins', serif;
+
+}
+
+.bw-quote-text {
+  font-family: 'Poppins', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  color: #777777;
+  line-height: 1.5;
+}
+.bw-quote-text span { color: #ffffff; }
+
+@media (max-width: 768px) {
+  .bw-top { grid-template-columns: 1fr; gap: 2rem; }
+  .bw-cards { grid-template-columns: 1fr; }
+  .bw-bottom-row { flex-direction: column; }
+}
 ::selection {
   background-color: #ec4899;
   color: #fff;
@@ -122,9 +336,9 @@ body::after {
   animation: fadeUp 0.7s ease 0.3s forwards;
 }
 .hero-title {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.03em;
   opacity: 0;
@@ -195,7 +409,7 @@ section { padding: 6rem 1.5rem; }
   background: linear-gradient(to right, var(--pink), var(--purple));
 }
 .section-title {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -239,7 +453,7 @@ section { padding: 6rem 1.5rem; }
 .meme-card:hover::before { opacity: 1; }
 .meme-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
 .meme-card h3 {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.05rem; font-weight: 700;
   margin-bottom: 0.5rem;
 }
@@ -284,13 +498,13 @@ section { padding: 6rem 1.5rem; }
 }
 .appreciate-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(99,102,241,0.2); }
 .appreciate-card .ac-num {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.4rem; font-weight: 800;
   background: linear-gradient(135deg, #c084fc, #ec4899);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   margin-bottom: 0.5rem; line-height: 1;
 }
-.appreciate-card h4 { font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.45rem; }
+.appreciate-card h4 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.45rem; }
 .appreciate-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
 
 @media (max-width: 600px) {
@@ -318,7 +532,7 @@ section { padding: 6rem 1.5rem; }
   border: none;
   border-radius: 100px;
   color: #fff;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
@@ -358,7 +572,7 @@ section { padding: 6rem 1.5rem; }
   50% { transform: scale(1.18); }
 }
 .surprise-message h3 {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem;
   background: linear-gradient(135deg, #c084fc, #f9a8d4);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -381,7 +595,7 @@ section { padding: 6rem 1.5rem; }
 }
 .closing-inner { position: relative; z-index: 1; max-width: 580px; margin: 0 auto; }
 .closing-quote {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.8rem, 4.5vw, 3rem);
   font-weight: 800;
   line-height: 1.2;
@@ -441,7 +655,7 @@ section { padding: 6rem 1.5rem; }
     <div class="hero-tag">✨ a love letter to my husband, basically</div>
     <h1 class="hero-title">
       Hello, my<br>
-      <span class="grad-text">beautiful gorilla</span>
+      <span class="grad-text">bestest best friend</span>
     </h1>
     <p class="hero-sub">
       This page exists because you deserve something made just for you.
@@ -575,11 +789,87 @@ section { padding: 6rem 1.5rem; }
   </div>
 </section>
 
+<!-- BLACK & WHITE SECTION -->
+<section id="bw-section">
+  <div class="bw-noise"></div>
+  <div class="bw-glow bw-glow1"></div>
+  <div class="bw-glow bw-glow2"></div>
+ 
+  <div class="container bw-inner">
+ 
+    <div class="bw-top reveal">
+      <div class="bw-title-block">
+        <div class="section-label" style="color:#444;margin-bottom:1.2rem;">
+          <span style="display:inline-block;width:22px;height:1.5px;background:linear-gradient(to right,#fff,#333);"></span>
+          her aesthetic, certified
+        </div>
+        <h2 class="bw-mega-title">
+          <span class="filled">Black.</span><br>
+          <span class="outline">White.</span><br>
+          <span class="filled">Flawless.</span>
+        </h2>
+        <p class="bw-desc">
+          Some people pick colours. She picked <strong>the two that go with everything</strong> — because she understood something the rest of us didn't. Clean, sharp, timeless. Exactly like her.
+        </p>
+      </div>
+ 
+      <div class="bw-badge-stack reveal" style="transition-delay:0.15s">
+        <div class="bw-badge"><span class="dot"></span> Classic taste, unmatched</div>
+        <div class="bw-badge"><span class="dot"></span> No unnecessary colour</div>
+        <div class="bw-badge"><span class="dot"></span> Effortlessly iconic</div>
+        <div class="bw-badge"><span class="dot"></span> High contrast, high standard</div>
+        <div class="bw-badge"><span class="dot"></span> Built different fr</div>
+      </div>
+    </div>
+ 
+    <div class="bw-cards reveal" style="transition-delay:0.1s">
+      <div class="bw-card bw-card-dark">
+        <span class="bw-icon">🖤</span>
+        <h3>Black is her power colour</h3>
+        <p>Not dark, not edgy — just clean and confident. The kind of person who wears black and it somehow says everything without saying a word. That's her. That's the energy.</p>
+      </div>
+      <div class="bw-card bw-card-white">
+        <span class="bw-icon" style="filter:invert(1)">🤍</span>
+        <h3>White is the balance</h3>
+        <p>Soft, sharp, calm. The counterpart that makes the contrast work. Just like how she balances being chaotic and wholesome at the same time.</p>
+      </div>
+      <div class="bw-card bw-card-outline">
+        <span class="bw-icon">✦</span>
+        <h3>Together?<br>Unstoppable.</h3>
+        <p>Black and white together isn't a colour scheme. It's a statement. And she lives it daily without even trying.</p>
+      </div>
+    </div>
+ 
+    <div class="bw-bottom-row reveal" style="transition-delay:0.2s">
+      <div class="bw-stat">
+        <span class="bw-stat-num">∞</span>
+        <span class="bw-stat-label">fits approved</span>
+      </div>
+      <div class="bw-stat">
+        <span class="bw-stat-num">#1</span>
+        <span class="bw-stat-label">colour combo of all time</span>
+      </div>
+      <div class="bw-stat">
+        <span class="bw-stat-num">0</span>
+        <span class="bw-stat-label">bad choices made</span>
+      </div>
+    </div>
+ 
+    <div class="bw-big-quote reveal" style="transition-delay:0.25s">
+      <div class="bw-quote-mark">"</div>
+      <p class="bw-quote-text">
+        She doesn't need a thousand colours to stand out. <span>Black and white, and she already outshines the whole room.</span>
+      </p>
+    </div>
+ 
+  </div>
+</section>
+ 
 <!-- CLOSING -->
 <section id="closing">
   <div class="closing-bg"></div>
   <div class="closing-inner reveal">
-    <p class="closing-quote">You are so, so sweet— don't you forget it.</p>
+    <p class="closing-quote">You are so, so sweet — don't you forget it.</p>
     <p class="closing-sub">
       This little corner of the internet was made with a lot of care, a bit of chaos, and a whole lot of genuine affection. Thank you for being my lovely gorilla.
     </p>
